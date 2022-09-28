@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [person, setPerson] = useState({firstname: '', age: ''});
+
+  const inputChanged = (event) => {
+    setPerson({...person, [event.target.name]: event.target.value});
+  }
+  
+  const showAlert = () => {
+    alert(`Hello ${person.firstname}`);
+  }
+
+  const showAlert2 = () => {
+    alert(`You are too young`);
+  }
+  
+
+return (
+  <div className="App">
+    Name: {person.firstname}  Age: {person.age}<br />
+    <form>
+      <input placeholder="First name" name="firstname" value={person.firstname} onChange={inputChanged} />
+      <input placeholder="Age" name="age" value={person.age} type="number" onChange={inputChanged} />
+      {person.age <= 18
+        ? <button onClick={showAlert2}>Check age</button>
+        : <button onClick={showAlert}>Check age</button>
+      }
+    </form>
+  </div>
+);
 }
 
 export default App;
